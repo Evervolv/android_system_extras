@@ -12,9 +12,9 @@ LOCAL_SHARED_LIBRARIES := \
     libsqlite \
     libcutils \
     libbinder \
-    libutils \
+    libutils
 
 LOCAL_MODULE_PATH := $(TARGET_OUT_OPTIONAL_EXECUTABLES)
-LOCAL_MODULE_TAGS := debug,eng
+LOCAL_MODULE_TAGS := debug eng
 
 include $(BUILD_EXECUTABLE)
