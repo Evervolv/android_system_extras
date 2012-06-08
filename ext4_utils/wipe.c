@@ -32,6 +32,7 @@
 #define BLKSECDISCARD _IO(0x12,125)
 #endif
 
+#ifndef SUPPRESS_EMMC_WIPE
 int wipe_block_device(int fd, s64 len)
 {
 	u64 range[2];
@@ -64,6 +65,16 @@ int wipe_block_device(int fd, s64 len)
 	return 0;
 }
 
+#else  /* SUPPRESS_EMMC_WIPE */
+
+int wipe_block_device(int fd, s64 len)
+{
+	warn("Wipe via secure discard suppressed due to bug in EMMC firmware\n");
+	return 1;
+}
+
+#endif  /* SUPPRESS_EMMC_WIPE */
+
 #else  /* __linux__ */
 #error "Missing block device wiping implementation for this platform!"
 #endif
@@ -72,7 +83,7 @@ int wipe_block_device(int fd, s64 len)
 
 int wipe_block_device(int fd, s64 len)
 {
-	/* Wiping is not supported on this platform. */
+	error("wipe not supported on non-linux platforms");
 	return 1;
 }
 
