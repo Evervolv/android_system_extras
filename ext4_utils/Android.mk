@@ -60,6 +60,11 @@ LOCAL_SHARED_LIBRARIES := \
     libselinux \
     libsparse \
     libz
+
+ifeq ($(BOARD_SUPPRESS_EMMC_WIPE),true)
+    LOCAL_CFLAGS += -DSUPPRESS_EMMC_WIPE
+endif
+
 include $(BUILD_SHARED_LIBRARY)
 
 
@@ -69,6 +74,11 @@ LOCAL_MODULE := libext4_utils_static
 LOCAL_STATIC_LIBRARIES += \
     libselinux \
     libsparse_static
+
+ifeq ($(BOARD_SUPPRESS_EMMC_WIPE),true)
+    LOCAL_CFLAGS += -DSUPPRESS_EMMC_WIPE
+endif
+
 include $(BUILD_STATIC_LIBRARY)
 
 
